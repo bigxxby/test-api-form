@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockup Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 200px;
+            padding: 10px;
+            border-right: 1px solid #ccc;
+        }
+
+        .sidebar input,
+        .sidebar button {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .content {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .output {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <input type="text" id="idInstance" placeholder="idInstance">
+            <input type="text" id="apiTokenInstance" placeholder="ApiTokenInstance">
+            <button id="getSettings">getSettings</button>
+            <button id="getStateInstance">getStateInstance</button>
+            <input type="text" id="phoneNumber" placeholder="77771234567">
+            <textarea id="message" placeholder="Hello World!"></textarea>
+            <button id="sendMessage">sendMessage</button>
+            <input type="text" id="phoneNumberForFile" placeholder="77771234567">
+            <input type="text" id="fileUrl" placeholder="https://mysite.com/img/horse.png">
+            <button id="sendFileByUrl">sendFileByUrl</button>
+        </div>
+        <div class="content">
+            <h2>Output:</h2>
+            <pre class="output" id="output">
+            </pre>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("getSettings").addEventListener("click", function () {
+            var idInstance = document.getElementById("idInstance").value;
+            var apiTokenInstance = document.getElementById("apiTokenInstance").value;
+            var output = document.getElementById("output");
+
+            fetch("/api/getSettings", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    idInstance: idInstance,
+                    apiTokenInstance: apiTokenInstance
+                }),
+            })
+                .then(response => response.text())
+                .then(data => {
+                    output.textContent = data;
+                })
+                .catch(error => {
+                    output.textContent = "Error: " + error;
+                });
+        });
+
+        document.getElementById("getStateInstance").addEventListener("click", function () {
+            var idInstance = document.getElementById("idInstance").value;
+            var apiTokenInstance = document.getElementById("apiTokenInstance").value;
+            var output = document.getElementById("output");
+
+            fetch("/api/getStateInstance", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    idInstance: idInstance,
+                    apiTokenInstance: apiTokenInstance
+                }),
+            })
+                .then(response => response.text())
+                .then(data => {
+                    output.textContent = data;
+                })
+                .catch(error => {
+                    output.textContent = "Error: " + error;
+                });
+        });
+
+        document.getElementById("sendMessage").addEventListener("click", function () {
+            var idInstance = document.getElementById("idInstance").value;
+            var apiTokenInstance = document.getElementById("apiTokenInstance").value;
+            var phoneNumber = document.getElementById("phoneNumber").value;
+            var message = document.getElementById("message").value;
+            var output = document.getElementById("output");
+
+            var chatId = phoneNumber ? phoneNumber + "@c.us" : "@c.us";
+
+            fetch("/api/sendMessage", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    idInstance: idInstance,
+                    apiTokenInstance: apiTokenInstance,
+                    chatId: chatId,
+                    message: message
+                }),
+            })
+                .then(response => response.text())
+                .then(data => {
+                    output.textContent = data;
+                })
+                .catch(error => {
+                    output.textContent = "Error: " + error;
+                });
+        });
+        document.getElementById("sendFileByUrl").addEventListener("click", function () {
+            var idInstance = document.getElementById("idInstance").value;
+            var apiTokenInstance = document.getElementById("apiTokenInstance").value;
+            var phoneNumberForFile = document.getElementById("phoneNumberForFile").value;
+            var fileUrl = document.getElementById("fileUrl").value;
+            var fileName = 'file'
+            var output = document.getElementById("output");
+
+            var chatId = phoneNumberForFile ? phoneNumberForFile + "@c.us" : "@c.us";
+
+            fetch("/api/sendFileByUrl", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    idInstance: idInstance,
+                    apiTokenInstance: apiTokenInstance,
+                    chatId: chatId,
+                    urlFile: fileUrl,
+                    fileName: fileName
+                }),
+            })
+                .then(response => response.text())
+                .then(data => {
+                    output.textContent = data;
+                })
+                .catch(error => {
+                    output.textContent = "Error: " + error;
+                });
+        });
+    </script>
+</body>
+
+</html>
