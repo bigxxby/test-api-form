@@ -63,10 +63,6 @@ The following endpoints are available:
      ```
    - Response: Returns the result of sending the file.
 
-## Usage
+## URL
 
-1. Clone the repository.
-2. Open the HTML file in a web browser.
-3. Enter the connection parameters (idInstance and ApiTokenInstance).
-4. Click on the desired endpoint button to execute the corresponding API method.
-5. View the response in the output field.
+- https://test-api-form.onrender.com/index
