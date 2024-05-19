@@ -93,7 +93,6 @@
         <div class="content">
             <h2>Output:</h2>
             <pre class="output" id="output">
-            </pre>
         </div>
     </div>
 
@@ -113,9 +112,9 @@
                     apiTokenInstance: apiTokenInstance
                 }),
             })
-                .then(response => response.text())
+                .then(response => response.json()) // Парсим JSON
                 .then(data => {
-                    output.textContent = data;
+                    output.textContent = JSON.stringify(data, null, 4); // Преобразуем JSON в строку с отступами
                 })
                 .catch(error => {
                     output.textContent = "Error: " + error;
@@ -137,9 +136,9 @@
                     apiTokenInstance: apiTokenInstance
                 }),
             })
-                .then(response => response.text())
+                .then(response => response.json()) // Парсим JSON
                 .then(data => {
-                    output.textContent = data;
+                    output.textContent = JSON.stringify(data, null, 4); // Преобразуем JSON в строку с отступами
                 })
                 .catch(error => {
                     output.textContent = "Error: " + error;
@@ -167,14 +166,15 @@
                     message: message
                 }),
             })
-                .then(response => response.text())
+                .then(response => response.json()) // Парсим JSON
                 .then(data => {
-                    output.textContent = data;
+                    output.textContent = JSON.stringify(data, null, 4); // Преобразуем JSON в строку с отступами
                 })
                 .catch(error => {
                     output.textContent = "Error: " + error;
                 });
         });
+
         document.getElementById("sendFileByUrl").addEventListener("click", function () {
             var idInstance = document.getElementById("idInstance").value;
             var apiTokenInstance = document.getElementById("apiTokenInstance").value;
@@ -198,9 +198,9 @@
                     fileName: fileName
                 }),
             })
-                .then(response => response.text())
+                .then(response => response.json()) // Парсим JSON
                 .then(data => {
-                    output.textContent = data;
+                    output.textContent = JSON.stringify(data, null, 4); // Преобразуем JSON в строку с отступами
                 })
                 .catch(error => {
                     output.textContent = "Error: " + error;
