@@ -12,7 +12,17 @@ func main() {
 	router.GET("/hello", HelloWorld)
 	router.GET("/env", GetEnv)
 	log.Println("Server started")
-	router.Run(":8080")
+
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "8080"
+	}
+	err := router.Run(":" + port)
+	if err != nil {
+		log.Println(err.Error())
+		return
+	}
 
 }
 func HelloWorld(c *gin.Context) {
